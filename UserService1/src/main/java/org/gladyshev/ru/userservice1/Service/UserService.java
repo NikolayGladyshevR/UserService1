@@ -33,10 +33,10 @@ public class UserService {
     @Transactional
     public void createUser(UserDTO userDTO) {
         if(userRepository.existsByName(userDTO.getName())) {
-            throw new IllegalArgumentException("Name already exists");
+            throw new IllegalArgumentException("Данный логин уже занят");
         }
         if(userRepository.existsByEmail(userDTO.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new IllegalArgumentException("Данный email уже используется");
         }
         User user = new User();
         user.setName(userDTO.getName());
@@ -46,6 +46,12 @@ public class UserService {
 
     @Transactional
     public void save(UserDTO userDTO) {
+        if(userRepository.existsByName(userDTO.getName())) {
+            throw new IllegalArgumentException("Данный логин уже занят");
+        }
+        if(userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new IllegalArgumentException("Данный email уже используется");
+        }
         User user = new User();
         user.setName(user.getName());
         user.setEmail(userDTO.getEmail());
@@ -53,6 +59,11 @@ public class UserService {
     }
     @Transactional
     public void deleteById(Integer id) {
-        userRepository.deleteById(id);
+        if(userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        }else{
+            throw new IllegalArgumentException("Id not found");
+        }
+
     }
 }
