@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.validation.annotation.Validated;
 
 @Entity
-@Validated
 @Table(name = "users")
 public class User {
     @Id
@@ -17,15 +16,13 @@ public class User {
     private Integer id;
 
     @Column(name = "name")
-    @UniqueElements(message = "Данное имя уже существует")
     @NotNull(message = "Имя не может быть пустым")
     @Size(min = 6, max = 49, message = "Число символов в имени должно быть от 6 до 49")
     private String name;
 
     @Column(name = "email")
-    @UniqueElements(message = "Данная почта уже используется")
     @NotNull(message = "Укажите почту")
-    @Pattern(regexp = "^[\\\\w!#$%&'*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$")
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
     private String email;
 
     public User(Integer id, String name, String email) {

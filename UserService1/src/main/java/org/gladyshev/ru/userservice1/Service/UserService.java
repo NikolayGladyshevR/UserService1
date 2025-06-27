@@ -1,5 +1,6 @@
 package org.gladyshev.ru.userservice1.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.gladyshev.ru.userservice1.Dto.UserDTO;
 import org.gladyshev.ru.userservice1.Entity.User;
 import org.gladyshev.ru.userservice1.Repository.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,11 +25,11 @@ public class UserService {
         return userRepository.findAll();
     }
     public User findByUsername(String username) {
-        return userRepository.findByName(username);
+        return userRepository.findByName(username).orElseThrow(() -> new EntityNotFoundException("Пользователь с именем " + username + " не найден"));
     }
 
     public User findById(Integer id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Пользователь с номером " + id + " не найден"));
     }
 
     @Transactional

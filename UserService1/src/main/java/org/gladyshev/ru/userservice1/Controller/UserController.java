@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO, @PathVariable Long id) {
+    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO, @PathVariable Integer id) {
         userService.save(userDTO);
         return new ResponseEntity<>("Изменения успешно внесены",HttpStatus.OK);
     }
