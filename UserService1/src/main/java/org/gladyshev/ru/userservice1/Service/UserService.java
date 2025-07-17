@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +23,12 @@ public class UserService {
     }
 
     public List<User> findAll() {
-        return userRepository.findAll();
+        var result = List.copyOf(userRepository.findAll());
+        if(result.isEmpty()){
+            throw new EntityNotFoundException("Пользователей нет");
+        }else return result;
     }
+
     public User findByUsername(String username) {
         return userRepository.findByName(username).orElseThrow(() -> new EntityNotFoundException("Пользователь с именем " + username + " не найден"));
     }
@@ -55,7 +60,7 @@ public class UserService {
             throw new IllegalArgumentException("Данный email уже используется");
         }
         User user = new User();
-        user.setName(user.getName());
+        user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
         userRepository.save(user);
     }

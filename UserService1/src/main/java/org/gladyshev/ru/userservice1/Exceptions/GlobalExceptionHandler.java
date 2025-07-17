@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String,String>> handleEntityExistsException(EntityExistsException ex){
         Map<String,String> errorResponse = new HashMap<>();
         errorResponse.put("error", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.FOUND).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

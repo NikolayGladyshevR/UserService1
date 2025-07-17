@@ -13,13 +13,21 @@ public class UserDTO {
 
 
     @NotNull(message = "Имя не может быть пустым")
-    @Size(min = 6, max = 49, message = "Число символов в имени должно быть от 6 до 49")
+    @Size(min = 4, max = 49, message = "Число символов в имени должно быть от 4 до 49")
     private String name;
 
 
     @NotNull(message = "Укажите почту")
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
     private String email;
+
+    public UserDTO(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public UserDTO() {
+    }
 
     public String getName() {
         return name;

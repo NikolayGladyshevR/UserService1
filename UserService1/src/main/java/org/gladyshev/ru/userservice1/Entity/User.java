@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.validation.annotation.Validated;
 
 @Entity
-@Table(name = "users")
+@Table(name = "add_users")
 public class User {
     @Id
     @Column(name = "id")
@@ -17,7 +17,7 @@ public class User {
 
     @Column(name = "name")
     @NotNull(message = "Имя не может быть пустым")
-    @Size(min = 6, max = 49, message = "Число символов в имени должно быть от 6 до 49")
+    @Size(min = 4, max = 49, message = "Число символов в имени должно быть от 4 до 49")
     private String name;
 
     @Column(name = "email")

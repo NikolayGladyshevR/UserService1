@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<String> addUser(@RequestBody @Validated UserDTO userDTO) {
         userService.createUser(userDTO);
-        return new ResponseEntity<>("Пользователь добавлен",HttpStatus.OK);
+        return new ResponseEntity<>("Пользователь добавлен",HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
